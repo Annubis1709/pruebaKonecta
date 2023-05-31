@@ -4,22 +4,19 @@ import java.util.List;
 
 public class FechaDePagoQuincena {
     public static LocalDate obtenerFechaPagoQuincena(LocalDate fecha, List<LocalDate> diasFestivos) {
-        if (esDiaHabil(fecha, diasFestivos))
-            return fecha;
+        int diaDelMes = fecha.getDayOfMonth();
+        LocalDate fechaDePago;
 
-        LocalDate fechaAnterior = fecha;
-        LocalDate fechaSiguiente = fecha;
-
-        while(true) {
-            fechaAnterior = fechaAnterior.minusDays(1);
-            fechaSiguiente = fechaSiguiente.plusDays(1);
-
-            if (esDiaHabil(fechaAnterior, diasFestivos)) {
-                return fechaAnterior;
-            } else if (esDiaHabil(fechaSiguiente, diasFestivos)) {
-                return fechaSiguiente;
-            }
+        if (diaDelMes <= 15) {
+            fechaDePago = fecha.withDayOfMonth(15);
+        } else {
+            fechaDePago = fecha.withDayOfMonth(30);
         }
+
+        while(!esDiaHabil(fechaDePago, diasFestivos)) {
+            fechaDePago = fechaDePago.minusDays(1);
+        }
+        return fechaDePago;
     }
 
     public static boolean esDiaHabil(LocalDate fecha, List<LocalDate> diasFestivos) {
