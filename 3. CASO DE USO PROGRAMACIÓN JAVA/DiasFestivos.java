@@ -11,7 +11,7 @@ public class DiasFestivos {
 
         try (Stream<String> lines = Files.lines(Path.of(archivo)) ) {
             return lines.map(LocalDate::parse)
-                    .collect(Collectors.toList());
+                        .collect(Collectors.toList());
 
         } catch (IOException exception) {
             System.out.println("Error al leer el archivo de dias festivos.");
