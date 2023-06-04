@@ -5,7 +5,7 @@ import java.util.List;
 public class FechaDePagoQuincena {
     public static LocalDate obtenerFechaPagoQuincena(LocalDate fecha, List<LocalDate> diasFestivos) {
         int diaDelMes = fecha.getDayOfMonth();
-        LocalDate fechaDePago = (diaDelMes <= 15)? fecha.withDayOfMonth(15) : fecha.withDayOfMonth(30);
+	
 
         while(!esDiaHabil(fechaDePago, diasFestivos)) {
             fechaDePago = fechaDePago.minusDays(1);
